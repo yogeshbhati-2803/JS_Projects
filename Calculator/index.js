@@ -1,36 +1,69 @@
 var displayArea=document.getElementById('display')
 function isOperator(x)
 {
-    if(!Number(x))
+    if(x=='+' || x=='*' || x=='-' || x=='/' || x=='%' )
         return true
     else
         return false
 }
 function buttonClicked(x){
-    if(displayArea.innerText=='0')
+        
+    if(x!='CLR' && x!='DEL' && x!='=')
     {
-        if(x!='0' && x!='00')
+
+        if(displayArea.innerText==='0')
         {
-            if(x=='.' || isOperator(x))
+            if(x!='0' && x!='00')
             {
-                displayArea.innerText = displayArea.innerText + x
-            }
-            else 
-            {
-                displayArea.innerText= x
+                if(x=='.' || isOperator(x))
+                {
+                    displayArea.innerText = displayArea.innerText + x;
+                }
+                else 
+                {
+                    displayArea.innerText= x;
+                }
+                
             }
             
         }
-        
+        else{
+            if(isOperator(displayArea.innerText[displayArea.innerText.length-1]) && isOperator(x))
+            {
+                displayArea.innerText=displayArea.innerText.slice(0,-1) + x;
+            }
+            else{
+    
+                displayArea.innerText = displayArea.innerText + x;
+            }
+        }
     }
     else{
-        if(isOperator(displayArea.innerText[displayArea.innerText.length-1]) && isOperator(x))
+        if(x==='CLR')
         {
-            displayArea.innerText=displayArea.innerText.replace(displayArea.innerText[displayArea.innerText.length-1],x)
+            displayArea.innerText = '0';
         }
-        else{
+        else if(x==='DEL')
+        {
+            if(displayArea.innerText.length==1)
+            {
+                displayArea.innerText=0
+            }
+            else{
 
-            displayArea.innerText = displayArea.innerText + x
+                displayArea.innerText =displayArea.innerText.slice(0,-1);
+            }
+            
+        }
+        else if(x === '=')
+        {
+            try{
+
+                displayArea.innerText =eval(displayArea.innerText);
+            }
+            catch{
+                displayArea.innerText='0';
+            }
         }
     }
 
