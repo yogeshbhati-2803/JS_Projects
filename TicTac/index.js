@@ -1,4 +1,5 @@
 let grids=document.getElementsByClassName("col")
+console.log(grids)
 let currentTurnText=document.getElementById("current-turn")
 winningCombination=[
     [0,1,2],
@@ -33,7 +34,24 @@ const SingleMove=(index)=>{
         }
         currentTurn = currentTurn === 1 ? 2 :1
         currentTurnText.innerText = `Player ${currentTurn}'s Turn`
+        let a=false
+        for(let i=0;i<grids.length;i++)
+        {
+            if(grids[i].innerText=='')
+            {
+                a=true
+            }
+        }
+        if(!a)
+        {
+            currentTurnText.innerText='Match Draw'
+        }
+        
+ 
     }
+    
+
+    
 
 }
 const checkWinningStatus=()=>{
